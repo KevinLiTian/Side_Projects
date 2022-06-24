@@ -29,7 +29,7 @@ class Agent():
         # Learning model
         self.model = Linear_QNet(INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE)
         if USE_TRAINED_MODEL:
-            self.model.load_state_dict(torch.load('model/trained_model2.pth'))
+            self.model.load_state_dict(torch.load('model/trained_model.pth'))
             self.model.eval()
 
         # Trainer
