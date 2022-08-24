@@ -7,6 +7,7 @@ This is a static webpage built with ReactJS and Tailwind CSS, created by Vite.
 In the root directory, run the command:
 
 ```sh
+npm install
 npm run dev
 ```
 
