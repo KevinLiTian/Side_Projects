@@ -13,6 +13,9 @@ class ParseResult:
         self.error = None
         self.node = None
 
+    def __repr__(self):
+        return f"{self.node}"
+
     def register(self, res):
         """ Register Result """
         if isinstance(res, ParseResult):

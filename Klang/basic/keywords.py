@@ -1,0 +1,5 @@
+""" Keywords """
+
+KEYWORDS = [
+    'VAR'
+]

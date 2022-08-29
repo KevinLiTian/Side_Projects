@@ -1,7 +1,7 @@
 """ Shell Script """
 # pylint: disable=import-error,wrong-import-position
 
-from Basic.basic import run
+from basic.klang import run
 
 while True:
     text = input("Klang > ")

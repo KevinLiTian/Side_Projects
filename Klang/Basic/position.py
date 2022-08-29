@@ -11,6 +11,9 @@ class Position:
         self.file_name = file_name
         self.file_text = file_text
 
+    def __repr__(self):
+        return f"File {self.file_name} line {self.line_number + 1} position {self.col}\n"
+
     def advance(self, current_char=None):
         """ Move to next char """
         self.idx += 1

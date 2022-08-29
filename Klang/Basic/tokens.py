@@ -1,6 +1,7 @@
 """ Tokens """
 
-# Token Type (TT) Constants
+# ========== Token Type (TT) Constants =========== #
+# Math
 TT_INT = "INT"
 TT_FLOAT = "FLOAT"
 TT_PLUS = "PLUS"
@@ -10,6 +11,13 @@ TT_DIV = "DIV"
 TT_POW = "POW"
 TT_LPAREN = "LPAREN"
 TT_RPAREN = "RPAREN"
+
+# Variable
+TT_IDENTIFIER = "IDENTIFIER"
+TT_KEYWORD = "KEYWORD"
+TT_EQ = "EQ"
+
+# End of File
 TT_EOF = "EOF"
 
 
