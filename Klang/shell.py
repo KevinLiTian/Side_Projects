@@ -1,9 +1,15 @@
 """ Shell Script """
-import basic
+# pylint: disable=import-error,wrong-import-position
+
+from Basic.basic import run
 
 while True:
     text = input("Klang > ")
-    result, error = basic.run('<stdin>', text)
+
+    if text == "exit":
+        break
+
+    result, error = run('<stdin>', text)
 
     if error:
         print(error.as_string())
