@@ -41,3 +41,7 @@ class Token:
             return f"{self.type}:{self.value}"
 
         return f"{self.type}"
+
+    def matches(self, type_, value=None):
+        """ Check for Token Equality """
+        return self.type == type_ and self.value == value

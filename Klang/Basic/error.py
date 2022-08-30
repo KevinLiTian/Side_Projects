@@ -64,4 +64,4 @@ class RTError(Error):
             pos = context.parent_entry_pos
             context = context.parent
 
-        return "Traceback (most recent call last):\n" + result
+        return "\nTraceback (most recent call last):\n" + result

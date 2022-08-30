@@ -4,6 +4,11 @@ from .lexer import Lexer
 from .parse import Parser
 from .interpreter import Interpreter
 from .context import Context
+from .symbol_table import SymbolTable
+from .values import Number
+
+global_symbol_table = SymbolTable()
+global_symbol_table.set("null", Number(0))
 
 
 def run(file_name, text):
@@ -26,6 +31,7 @@ def run(file_name, text):
     # Run program
     interpreter = Interpreter()
     context = Context("<program>")
+    context.symbol_table = global_symbol_table
     result = interpreter.visit(ast.node, context)
 
     return result.value, result.error
