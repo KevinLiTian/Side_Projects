@@ -1,5 +1,5 @@
 """ Parse """
-# pylint: disable=unused-wildcard-import,wildcard-import,too-many-function-args
+# pylint: disable=unused-wildcard-import,wildcard-import,too-many-function-args,line-too-long
 
 from .tokens import *
 from .nodes import *
@@ -49,12 +49,19 @@ class Parser:
         self.advance()
 
     def advance(self):
-        """ Next Token """
+        """Go to the Next Token """
         self.tok_idx += 1
         if self.tok_idx < len(self.tokens):
             self.current_tok = self.tokens[self.tok_idx]
 
         return self.current_tok
+
+    def peek(self):
+        """ Peek the Next Token """
+        if self.tok_idx < len(self.tokens) - 1:
+            return self.tokens[self.tok_idx + 1]
+
+        return None
 
     def parse(self):
         """ High Level Parse Function """
@@ -68,6 +75,76 @@ class Parser:
                     "Expected '+', '-', '*', '/', '^', '==', '!=', '<', '>', <=', '>=', 'AND' or 'OR'"
                 ))
         return res
+
+    def if_expr(self):
+        """ If Statement """
+        res = ParseResult()
+        cases = []
+        else_case = None
+
+        if not self.current_tok.matches(TT_KEYWORD, 'IF'):
+            return res.failure(
+                InvalidSyntaxError(self.current_tok.pos_start,
+                                   self.current_tok.pos_end, "Expected 'IF'"))
+
+        res.register_advancement()
+        self.advance()
+
+        condition = res.register(self.expr())
+
+        if res.error:
+            return res
+
+        if not self.current_tok.matches(TT_KEYWORD, 'THEN'):
+            return res.failure(
+                InvalidSyntaxError(self.current_tok.pos_start,
+                                   self.current_tok.pos_end,
+                                   "Expected 'THEN'"))
+
+        res.register_advancement()
+        self.advance()
+
+        expr = res.register(self.expr())
+
+        if res.error:
+            return res
+
+        cases.append((condition, expr))
+
+        while self.current_tok.matches(TT_KEYWORD, 'ELIF'):
+            res.register_advancement()
+            self.advance()
+
+            condition = res.register(self.expr())
+            if res.error:
+                return res
+
+            if not self.current_tok.matches(TT_KEYWORD, 'THEN'):
+                return res.failure(
+                    InvalidSyntaxError(self.current_tok.pos_start,
+                                       self.current_tok.pos_end,
+                                       "Expected 'THEN'"))
+
+            res.register_advancement()
+            self.advance()
+
+            expr = res.register(self.expr())
+
+            if res.error:
+                return res
+
+            cases.append((condition, expr))
+
+        if self.current_tok.matches(TT_KEYWORD, 'ELSE'):
+            res.register_advancement()
+            self.advance()
+
+            else_case = res.register(self.expr())
+
+            if res.error:
+                return res
+
+        return res.success(IfNode(cases, else_case))
 
     def atom(self):
         """ Highest Prio """
@@ -100,6 +177,13 @@ class Parser:
             return res.failure(
                 InvalidSyntaxError(self.current_tok.pos_start,
                                    self.current_tok.pos_end, "Expected ')'"))
+
+        if tok.matches(TT_KEYWORD, "IF"):
+            if_expr = res.register(self.if_expr())
+            if res.error:
+                return res
+
+            return res.success(if_expr)
 
         return res.failure(
             InvalidSyntaxError(
@@ -196,23 +280,21 @@ class Parser:
             return res.success(VarAssignNode(var_name, expr))
 
         if self.current_tok.type == TT_IDENTIFIER:
-            var_name = self.current_tok
-            res.register_advancement()
-            self.advance()
+            next_tok = self.peek()
 
-            if self.current_tok.type == TT_EQ:
+            if next_tok and next_tok.type == TT_EQ:
+                var_name = self.current_tok
                 res.register_advancement()
                 self.advance()
+                res.register_advancement()
+                self.advance()
+
                 expr = res.register(self.expr())
 
                 if res.error:
                     return res
 
                 return res.success(VarReassignNode(var_name, expr))
-
-            res.register_advancement()
-            self.advance()
-            return res.success(VarAccessNode(var_name))
 
         node = res.register(
             self.bin_op(self.comp_expr,

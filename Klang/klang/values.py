@@ -119,3 +119,7 @@ class Number:
         copy.set_pos(self.pos_start, self.pos_end)
         copy.set_context(self.context)
         return copy
+
+    def is_true(self):
+        """ Determine Boolean """
+        return self.value != 0
