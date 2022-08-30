@@ -162,6 +162,25 @@ class Parser:
 
             return res.success(VarAssignNode(var_name, expr))
 
+        if self.current_tok.type == TT_IDENTIFIER:
+            var_name = self.current_tok
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type == TT_EQ:
+                res.register_advancement()
+                self.advance()
+                expr = res.register(self.expr())
+
+                if res.error:
+                    return res
+
+                return res.success(VarAssignNode(var_name, expr))
+
+            res.register_advancement()
+            self.advance()
+            return res.success(VarAccessNode(var_name))
+
         node = res.register(self.bin_op(self.term, (TT_PLUS, TT_MINUS)))
 
         if res.error:

@@ -1,6 +1,7 @@
 ========= Grammars for the Parser =========
 
 expr    : KEYWORD:VAR IDENTIFIER EQ expr
+        : IDENTIFIER EQ expr
         : term ((PLUS|MINUS) term)*
 
 term    : factor ((MUL|DIV) factor)*
