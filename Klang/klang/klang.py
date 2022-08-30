@@ -1,4 +1,4 @@
-""" Klang Basics """
+""" Klang Runner """
 
 from .lexer import Lexer
 from .parse import Parser

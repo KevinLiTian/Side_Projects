@@ -63,9 +63,10 @@ class Parser:
         # Not reaching end of file token after parsing, syntax error
         if not res.error and self.current_tok.type != TT_EOF:
             return res.failure(
-                InvalidSyntaxError(self.current_tok.pos_start,
-                                   self.current_tok.pos_end,
-                                   "Expected '+', '-', '*' or '/'"))
+                InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected '+', '-', '*', '/', '^', '==', '!=', '<', '>', <=', '>=', 'AND' or 'OR'"
+                ))
         return res
 
     def atom(self):

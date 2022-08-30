@@ -1,5 +1,5 @@
 """ Error """
-from .util import string_with_arrows
+from .util import string_with_arrows, TextColors
 
 
 class Error:
@@ -13,8 +13,8 @@ class Error:
 
     def as_string(self):
         """ Print Out Error """
-        result = f"{self.error_name}: {self.details}\n"
-        result += f"File {self.pos_start.file_name}, line {self.pos_start.line_number + 1}"
+        result = f"\n{TextColors.FAIL}Klang {self.error_name}{TextColors.ENDC}: {self.details}\n"
+        result += f"In file {self.pos_start.file_name}, on line {self.pos_start.line_number + 1}"
         result += '\n\n' + string_with_arrows(self.pos_start.file_text,
                                               self.pos_start, self.pos_end)
 
@@ -52,7 +52,7 @@ class RTError(Error):
     def as_string(self):
         """ Print Out Error """
         result = self.generate_traceback()
-        result += f"{self.error_name}: {self.details}"
+        result += f"{TextColors.FAIL}Klang {self.error_name}{TextColors.ENDC}: {self.details}"
         result += '\n\n' + string_with_arrows(self.pos_start.file_text,
                                               self.pos_start, self.pos_end)
 
@@ -65,10 +65,11 @@ class RTError(Error):
         context = self.context
 
         while context:
-            description = f"  File {pos.file_name}, "
-            description += f"line {str(pos.line_number + 1)}, in {context.display_name}\n"
+            description = f"In file {pos.file_name}, "
+            description += f"on line {str(pos.line_number + 1)}, "
+            description += f"in program {context.display_name}\n\n"
             result = description + result
             pos = context.parent_entry_pos
             context = context.parent
 
-        return "\nTraceback (most recent call last):\n" + result
+        return f"\n{TextColors.FAIL}Klang Error Traceback:{TextColors.ENDC}\n" + result
