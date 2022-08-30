@@ -1,7 +1,7 @@
 """ Shell Script """
 # pylint: disable=import-error,wrong-import-position
 
-from basic.klang import run
+from klang import klang
 
 while True:
     text = input("Klang > ")
@@ -9,7 +9,7 @@ while True:
     if text == "exit":
         break
 
-    result, error = run('<stdin>', text)
+    result, error = klang.run('<stdin>', text)
 
     if error:
         print(error.as_string())
