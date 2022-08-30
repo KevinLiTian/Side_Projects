@@ -1,5 +1,5 @@
 """ Parse """
-# pylint: disable=unused-wildcard-import,wildcard-import
+# pylint: disable=unused-wildcard-import,wildcard-import,too-many-function-args
 
 from .tokens import *
 from .nodes import *
@@ -130,6 +130,38 @@ class Parser:
         """ Fourth Prio """
         return self.bin_op(self.factor, (TT_MUL, TT_DIV))
 
+    def arith_expr(self):
+        """ Fifth Prio """
+        return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
+
+    def comp_expr(self):
+        """ Sixth Prio """
+        res = ParseResult()
+
+        if self.current_tok.matches(TT_KEYWORD, "NOT"):
+            op_tok = self.current_tok
+            res.register_advancement()
+            self.advance()
+
+            node = res.register(self.comp_expr())
+
+            if res.error:
+                return res
+
+            return res.success(UnaryOpNode(op_tok, node))
+
+        node = res.register(
+            self.bin_op(self.arith_expr,
+                        (TT_EE, TT_NE, TT_LT, TT_GT, TT_LTE, TT_GTE)))
+
+        if res.error:
+            return res.failure(
+                InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected int, float, identifier, '+', '-', '(' or NOT"))
+
+        return res.success(node)
+
     def expr(self):
         """ General Priority  """
         res = ParseResult()
@@ -175,13 +207,15 @@ class Parser:
                 if res.error:
                     return res
 
-                return res.success(VarAssignNode(var_name, expr))
+                return res.success(VarReassignNode(var_name, expr))
 
             res.register_advancement()
             self.advance()
             return res.success(VarAccessNode(var_name))
 
-        node = res.register(self.bin_op(self.term, (TT_PLUS, TT_MINUS)))
+        node = res.register(
+            self.bin_op(self.comp_expr,
+                        ((TT_KEYWORD, "AND"), (TT_KEYWORD, "OR"))))
 
         if res.error:
             return res.failure(
@@ -202,7 +236,8 @@ class Parser:
         if res.error:
             return res
 
-        while self.current_tok.type in ops:
+        while self.current_tok.type in ops or (self.current_tok.type,
+                                               self.current_tok.value) in ops:
             op_tok = self.current_tok
             res.register_advancement()
             self.advance()

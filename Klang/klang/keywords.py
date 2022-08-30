@@ -1,5 +1,3 @@
 """ Keywords """
 
-KEYWORDS = [
-    'VAR'
-]
+KEYWORDS = ['VAR', 'AND', 'OR', 'NOT']

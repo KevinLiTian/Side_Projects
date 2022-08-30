@@ -17,6 +17,14 @@ TT_IDENTIFIER = "IDENTIFIER"
 TT_KEYWORD = "KEYWORD"
 TT_EQ = "EQ"
 
+# Logics
+TT_EE = "EE"
+TT_NE = "NE"
+TT_LT = "LT"
+TT_GT = "GT"
+TT_LTE = "LTE"
+TT_GTE = "GTE"
+
 # End of File
 TT_EOF = "EOF"
 

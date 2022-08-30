@@ -29,13 +29,20 @@ class Lexer:
         tokens_list = []
 
         while self.current_char is not None:
+
             # Ignore Space or Tab
             if self.current_char in ' \t':
                 self.advance()
+
+            # Number
             elif self.current_char in DIGITS:
                 tokens_list.append(self.make_number())
+
+            # Identifier
             elif self.current_char in LETTERS:
                 tokens_list.append(self.make_identifier())
+
+            # Math
             elif self.current_char == '+':
                 tokens_list.append(Token(TT_PLUS, pos_start=self.pos))
                 self.advance()
@@ -57,9 +64,24 @@ class Lexer:
             elif self.current_char == ')':
                 tokens_list.append(Token(TT_RPAREN, pos_start=self.pos))
                 self.advance()
+
+            # Logics
+            elif self.current_char == '!':
+                tok, error = self.make_not_equals()
+                if error:
+                    return [], error
+                tokens_list.append(tok)
+
             elif self.current_char == '=':
-                tokens_list.append(Token(TT_EQ, pos_start=self.pos))
-                self.advance()
+                tokens_list.append(self.make_equals())
+
+            elif self.current_char == '<':
+                tokens_list.append(self.make_less_than())
+
+            elif self.current_char == '>':
+                tokens_list.append(self.make_greater_than())
+
+            # No matching character
             else:
                 pos_start = self.pos.copy()
                 char = self.current_char
@@ -67,6 +89,7 @@ class Lexer:
                 return [], IllegalCharError(pos_start, self.pos,
                                             "'" + char + "'")
 
+        # Note end of file
         tokens_list.append(Token(TT_EOF, pos_start=self.pos))
         return tokens_list, None
 
@@ -103,3 +126,54 @@ class Lexer:
 
         tok_type = TT_KEYWORD if id_str in KEYWORDS else TT_IDENTIFIER
         return Token(tok_type, id_str, pos_start, self.pos)
+
+    def make_not_equals(self):
+        """ Not Equal Logical Operator """
+        pos_start = self.pos.copy()
+        self.advance()
+
+        if self.current_char == "=":
+            self.advance()
+            return Token(TT_NE, pos_start=pos_start, pos_end=self.pos), None
+
+        self.advance()
+        return None, ExpectedCharError(pos_start, self.pos, "'=' after '!'")
+
+    def make_equals(self):
+        """ Single = and Logical == """
+        pos_start = self.pos.copy()
+        self.advance()
+
+        tok_type = TT_EQ
+
+        if self.current_char == '=':
+            self.advance()
+            tok_type = TT_EE
+
+        return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
+
+    def make_less_than(self):
+        """ < or <= """
+        pos_start = self.pos.copy()
+        self.advance()
+
+        tok_type = TT_LT
+
+        if self.current_char == '=':
+            self.advance()
+            tok_type = TT_LTE
+
+        return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
+
+    def make_greater_than(self):
+        """ > or >= """
+        pos_start = self.pos.copy()
+        self.advance()
+
+        tok_type = TT_GT
+
+        if self.current_char == '=':
+            self.advance()
+            tok_type = TT_GTE
+
+        return Token(tok_type, pos_start=pos_start, pos_end=self.pos)

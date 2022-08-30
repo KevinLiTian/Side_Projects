@@ -60,6 +60,59 @@ class Number:
             return Number(self.value**other.value).set_context(
                 self.context), None
 
+    def get_comparison_eq(self, other):
+        """ Logical EQ """
+        if isinstance(other, Number):
+            return Number(int(self.value == other.value)).set_context(
+                self.context), None
+
+    def get_comparison_ne(self, other):
+        """ Logical NE """
+        if isinstance(other, Number):
+            return Number(int(self.value != other.value)).set_context(
+                self.context), None
+
+    def get_comparison_lt(self, other):
+        """ Logical LT """
+        if isinstance(other, Number):
+            return Number(int(self.value < other.value)).set_context(
+                self.context), None
+
+    def get_comparison_gt(self, other):
+        """ Logical GT """
+        if isinstance(other, Number):
+            return Number(int(self.value > other.value)).set_context(
+                self.context), None
+
+    def get_comparison_lte(self, other):
+        """ Logical LTE """
+        if isinstance(other, Number):
+            return Number(int(self.value <= other.value)).set_context(
+                self.context), None
+
+    def get_comparison_gte(self, other):
+        """ Logical GTE """
+        if isinstance(other, Number):
+            return Number(int(self.value >= other.value)).set_context(
+                self.context), None
+
+    def anded_by(self, other):
+        """ Logical AND """
+        if isinstance(other, Number):
+            return Number(int(self.value
+                              and other.value)).set_context(self.context), None
+
+    def ored_by(self, other):
+        """ Logical OR """
+        if isinstance(other, Number):
+            return Number(int(self.value
+                              or other.value)).set_context(self.context), None
+
+    def notted(self):
+        """ Logical NOT """
+        return Number(1 if self.value == 0 else 0).set_context(
+            self.context), None
+
     def copy(self):
         """ Get a copy of number """
         copy = Number(self.value)
