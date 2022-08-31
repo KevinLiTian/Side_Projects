@@ -110,6 +110,9 @@ class Number:
 
     def notted(self):
         """ Logical NOT """
+        if self.value not in (0, 1):
+            return None, InvalidSyntaxError(self.pos_start, self.pos_start,
+                                            "You can only negate 0 and 1")
         return Number(1 if self.value == 0 else 0).set_context(
             self.context), None
 

@@ -1,10 +1,10 @@
 """ Keywords """
 
 KEYWORDS = [
-    'VAR',
-    'AND',
-    'OR',
-    'NOT',
+    "VAR",
+    "AND",
+    "OR",
+    "NOT",
     "IF",
     "THEN",
     "ELIF",
