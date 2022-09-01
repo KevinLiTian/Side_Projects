@@ -2,9 +2,12 @@
 # pylint: disable=import-error,wrong-import-position
 
 from klang import klang
+from klang.util import TextColors
+
+print(f"{TextColors.OKCYAN}\nWelcome to Klang Shell!\n{TextColors.ENDC}")
 
 while True:
-    text = input("Klang > ")
+    text = input("> ")
 
     if text == "exit":
         break
