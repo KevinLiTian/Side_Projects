@@ -4,7 +4,8 @@
 from klang import klang
 from klang.util import TextColors
 
-print(f"{TextColors.OKCYAN}\nWelcome to Klang Shell!\n{TextColors.ENDC}")
+print(f"{TextColors.OKCYAN}\nWelcome to Klang Shell!{TextColors.ENDC}")
+print("Type 'exit' or press 'control + c' to exit shell")
 
 while True:
     text = input("> ")

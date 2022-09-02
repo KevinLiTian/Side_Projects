@@ -8,5 +8,9 @@ KEYWORDS = [
     "IF",
     "THEN",
     "ELIF",
-    "ELSE"
+    "ELSE",
+    "FOR",
+    "TO",
+    "STEP",
+    "WHILE"
 ]
