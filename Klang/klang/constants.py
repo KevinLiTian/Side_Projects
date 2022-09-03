@@ -45,6 +45,10 @@ TT_ARROW = "ARROW"
 # String
 TT_STRING = "STRING"
 
+# List
+TT_LSQUARE = "LSQUARE"
+TT_RSQUARE = "RSQUARE"
+
 # End of File
 TT_EOF = "EOF"
 

@@ -59,6 +59,14 @@ class TestKlang(unittest.TestCase):
         self.assertEqual(res, None)
         self.assertNotEqual(err, None)
 
+        res, err = klang.run('<stdin>', '[')
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', '[1, 2, 3')
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
     def test_number(self):
         """ Test Raw Number Input """
 
@@ -295,6 +303,32 @@ class TestKlang(unittest.TestCase):
 
         res, err = klang.run('<stdin>', 'a * 3')
         self.assertEqual(res.value, "abcabcabc")
+        self.assertEqual(err, None)
+
+    def test_loops(self):
+        """ Test FOR & WHILE loops"""
+
+        res, err = klang.run('<stdin>', 'FOR i = 0 TO 10 THEN i ^ 2')
+        self.assertEqual(str(res), "[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', 'WHILE i > 0 THEN i = i -1')
+        self.assertEqual(str(res), "[8, 7, 6, 5, 4, 3, 2, 1, 0]")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', 'FOR i = 0 TO 10 STEP 2 THEN 2 ^ i')
+        self.assertEqual(str(res), "[1, 4, 16, 64, 256]")
+        self.assertEqual(err, None)
+
+    def test_lists(self):
+        """ Test List Structure """
+
+        res, err = klang.run('<stdin>', '[]')
+        self.assertEqual(str(res), "[]")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', '[1, 2, 3]')
+        self.assertEqual(str(res), "[1, 2, 3]")
         self.assertEqual(err, None)
 
 

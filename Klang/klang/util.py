@@ -367,6 +367,23 @@ class String(Base):
         return copy
 
 
+class List(Base):
+    """ List Type """
+
+    def __init__(self, elements):
+        super().__init__()
+        self.elements = elements
+
+    def __repr__(self):
+        return f'[{", ".join([str(x) for x in self.elements])}]'
+
+    def copy(self):
+        copy = List(self.elements)
+        copy.set_pos(self.pos_start, self.pos_end)
+        copy.set_context(self.context)
+        return copy
+
+
 class Function(Base):
     """ Function Type """
 
@@ -444,6 +461,16 @@ class StringNode:
 
     def __repr__(self):
         return f"{self.tok}"
+
+
+class ListNode:
+    """ List """
+
+    def __init__(self, element_nodes, pos_start, pos_end):
+        self.element_nodes = element_nodes
+
+        self.pos_start = pos_start
+        self.pos_end = pos_end
 
 
 class VarAccessNode:
