@@ -1,5 +1,6 @@
 """ Value Types """
 # pylint: disable = import-outside-toplevel, arguments-differ, missing-function-docstring, unused-argument
+import math
 from .error import RTError
 from .util import RTResult, SymbolTable, Context
 
@@ -204,11 +205,6 @@ class Number(Base):
         return str(self.value)
 
 
-Number.NULL = Number(0)
-Number.FALSE = Number(0)
-Number.TRUE = Number(1)
-
-
 class String(Base):
     """ String Type """
 
@@ -255,6 +251,14 @@ class List(Base):
 
     def __repr__(self):
         return f'[{", ".join([str(x) for x in self.elements])}]'
+
+    def added_to(self, other):
+        if isinstance(other, List):
+            new_list = self.copy()
+            new_list.elements.extend(other.elements)
+            return new_list, None
+
+        return None, Base.illegal_operation(self, other)
 
     def copy(self):
         copy = List(self.elements)
@@ -483,6 +487,10 @@ class BuiltInFunction(BaseFunction):
     execute_extend.arg_names = ["listA", "listB"]
 
 
+Number.NULL = Number(0)
+Number.FALSE = Number(0)
+Number.TRUE = Number(1)
+Number.PI = Number(math.pi)
 BuiltInFunction.print = BuiltInFunction("print")
 BuiltInFunction.input = BuiltInFunction("input")
 BuiltInFunction.clear = BuiltInFunction("clear")

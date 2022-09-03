@@ -1,6 +1,7 @@
 """ Klang Testing """
 import unittest
 import random
+import math
 from klang import klang
 
 
@@ -74,6 +75,10 @@ class TestKlang(unittest.TestCase):
             res, err = klang.run('<stdin>', str(i))
             self.assertEqual(res.value, i)
             self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', "PI")
+        self.assertEqual(res.value, math.pi)
+        self.assertEqual(err, None)
 
     def test_math_op(self):
         """ Test Math Operation """
@@ -329,6 +334,10 @@ class TestKlang(unittest.TestCase):
 
         res, err = klang.run('<stdin>', '[1, 2, 3]')
         self.assertEqual(str(res), "[1, 2, 3]")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', '[1, 2, 3] + [4, 5, 6]')
+        self.assertEqual(str(res), "[1, 2, 3, 4, 5, 6]")
         self.assertEqual(err, None)
 
 
