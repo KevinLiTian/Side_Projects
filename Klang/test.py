@@ -55,6 +55,10 @@ class TestKlang(unittest.TestCase):
         self.assertEqual(res, None)
         self.assertNotEqual(err, None)
 
+        res, err = klang.run('<stdin>', '"')
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
     def test_number(self):
         """ Test Raw Number Input """
 
@@ -260,6 +264,37 @@ class TestKlang(unittest.TestCase):
 
         res, err = klang.run('<stdin>', "a(10)")
         self.assertEqual(res.value, 1)
+        self.assertEqual(err, None)
+
+    def test_string(self):
+        """ Test String Type """
+
+        res, err = klang.run('<stdin>', '"abc"')
+        self.assertEqual(res.value, "abc")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', '"\n"')
+        self.assertEqual(res.value, '\n')
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', '"\t"')
+        self.assertEqual(res.value, '\t')
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', 'VAR a = "abc"')
+        self.assertEqual(res.value, "abc")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', 'VAR b = "def"')
+        self.assertEqual(res.value, "def")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', 'a + b')
+        self.assertEqual(res.value, "abcdef")
+        self.assertEqual(err, None)
+
+        res, err = klang.run('<stdin>', 'a * 3')
+        self.assertEqual(res.value, "abcabcabc")
         self.assertEqual(err, None)
 
 
