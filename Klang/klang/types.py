@@ -482,7 +482,7 @@ class BuiltInFunction(BaseFunction):
                         "Second argument must be list", exec_ctx))
 
         list1.elements.extend(list2.elements)
-        return RTResult().success(None)
+        return RTResult().success(list1)
 
     execute_extend.arg_names = ["listA", "listB"]
 
