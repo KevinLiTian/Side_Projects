@@ -1,14 +1,25 @@
 """ Klang Runner """
 
-from .util import SymbolTable, Number, Context
+from .util import BuiltInFunction, SymbolTable, Number, Context
 from .lexer import Lexer
 from .parser import Parser
 from .interpreter import Interpreter
 
 global_symbol_table = SymbolTable()
-global_symbol_table.set("NULL", Number(0))
-global_symbol_table.set("TRUE", Number(1))
-global_symbol_table.set("FALSE", Number(0))
+global_symbol_table.set("NULL", Number.NULL)
+global_symbol_table.set("TRUE", Number.TRUE)
+global_symbol_table.set("FALSE", Number.FALSE)
+global_symbol_table.set("print", BuiltInFunction.print)
+global_symbol_table.set("input", BuiltInFunction.input)
+global_symbol_table.set("clear", BuiltInFunction.clear)
+global_symbol_table.set("cls", BuiltInFunction.clear)
+global_symbol_table.set("IS_NUM", BuiltInFunction.is_number)
+global_symbol_table.set("IS_STR", BuiltInFunction.is_string)
+global_symbol_table.set("IS_LIST", BuiltInFunction.is_list)
+global_symbol_table.set("IS_FUN", BuiltInFunction.is_function)
+global_symbol_table.set("append", BuiltInFunction.append)
+global_symbol_table.set("pop", BuiltInFunction.pop)
+global_symbol_table.set("extend", BuiltInFunction.extend)
 
 
 def run(file_name, text):
