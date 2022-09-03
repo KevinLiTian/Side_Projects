@@ -27,7 +27,14 @@ class Parser:
 
         return self.current_tok
 
-    def peek(self):
+    def peek_behind(self):
+        """ Peek the previous Token """
+        if self.tok_idx > 0:
+            return self.tokens[self.tok_idx - 1]
+
+        return None
+
+    def peek_ahead(self):
         """ Peek the Next Token """
         if self.tok_idx < len(self.tokens) - 1:
             return self.tokens[self.tok_idx + 1]
@@ -80,9 +87,19 @@ class Parser:
             return res.success(VarAssignNode(var_name, expr))
 
         if self.current_tok.type == TT_IDENTIFIER:
-            next_tok = self.peek()
+            prev_token = self.peek_behind()
+            next_tok = self.peek_ahead()
 
             if next_tok and next_tok.type == TT_EQ:
+                if prev_token and prev_token.matches(TT_KEYWORD, "IF"):
+                    res.register_advancement()
+                    self.advance()
+                    return res.failure(
+                        InvalidSyntaxError(
+                            self.current_tok.pos_start,
+                            self.current_tok.pos_start.copy().advance(),
+                            "Unexpected '=', maybe you meant '=='?"))
+
                 var_name = self.current_tok
                 res.register_advancement()
                 self.advance()
@@ -513,7 +530,7 @@ class Parser:
                 res.register_advancement()
                 self.advance()
 
-            if self.current_tok.type != TT_LPAREN:
+            if self.current_tok.type != TT_RPAREN:
                 return res.failure(
                     InvalidSyntaxError(self.current_tok.pos_start,
                                        self.current_tok.pos_end,

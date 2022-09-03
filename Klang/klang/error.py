@@ -113,7 +113,7 @@ class RTError(Error):
         while context:
             description = f"In file {pos.file_name}, "
             description += f"on line {str(pos.line_number + 1)}, "
-            description += f"in program {context.display_name}\n\n"
+            description += f"in program {context.display_name}\n"
             result = description + result
             pos = context.parent_entry_pos
             context = context.parent

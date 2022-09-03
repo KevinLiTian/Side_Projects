@@ -513,7 +513,7 @@ class FuncDefNode:
         else:
             self.pos_start = self.body_node.pos_start
 
-        self.pos_end = self.body_node.pos_ends
+        self.pos_end = self.body_node.pos_end
 
 
 class CallNode:

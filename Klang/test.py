@@ -7,6 +7,54 @@ from klang import klang
 class TestKlang(unittest.TestCase):
     """ Klang Test Cases """
 
+    def test_error(self):
+        """ Test Errors """
+
+        res, err = klang.run('<stdin>', "123 123 123")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        # !Error: Division by Zero
+        int1, int2 = 0, 0
+        res, err = klang.run('<stdin>', f"{int1} / {int2}")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "=")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "IF")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "b")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "!")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "NOT 2")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "IF a = 1 THEN 123")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "IF a == 1")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
+        res, err = klang.run('<stdin>', "FUN test(a) => a / 0")
+        self.assertEqual(str(res), "<function test>")
+        self.assertEqual(err, None)
+        res, err = klang.run('<stdin>', "test(10)")
+        self.assertEqual(res, None)
+        self.assertNotEqual(err, None)
+
     def test_number(self):
         """ Test Raw Number Input """
 
@@ -79,12 +127,6 @@ class TestKlang(unittest.TestCase):
             res, err = klang.run('<stdin>', f"{float1} / {float2}")
             self.assertEqual(res.value, float1 / float2)
             self.assertEqual(err, None)
-
-        # !Error: Division by Zero
-        int1, int2 = 0, 0
-        res, err = klang.run('<stdin>', f"{int1} / {int2}")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
 
         # Power
         for __ in range(100):
@@ -201,40 +243,24 @@ class TestKlang(unittest.TestCase):
         self.assertEqual(res.value, 456)
         self.assertEqual(err, None)
 
-    def test_error(self):
-        """ Test Errors """
+    def test_function(self):
+        """ Test Function Definition & Call """
 
-        res, err = klang.run('<stdin>', "123 123 123")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
+        res, err = klang.run('<stdin>', "FUN add(a, b) => a + b")
+        self.assertEqual(str(res), '<function add>')
+        self.assertEqual(err, None)
 
-        res, err = klang.run('<stdin>', "=")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
+        res, err = klang.run('<stdin>', "add(5, 6)")
+        self.assertEqual(res.value, 11)
+        self.assertEqual(err, None)
 
-        res, err = klang.run('<stdin>', "IF")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
+        res, err = klang.run('<stdin>', "VAR a = FUN (a) => a / 10")
+        self.assertEqual(str(res), '<function <anonymous>>')
+        self.assertEqual(err, None)
 
-        res, err = klang.run('<stdin>', "b")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
-
-        res, err = klang.run('<stdin>', "!")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
-
-        res, err = klang.run('<stdin>', "NOT 2")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
-
-        res, err = klang.run('<stdin>', "IF a = 1 THEN 123")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
-
-        res, err = klang.run('<stdin>', "IF a == 1")
-        self.assertEqual(res, None)
-        self.assertNotEqual(err, None)
+        res, err = klang.run('<stdin>', "a(10)")
+        self.assertEqual(res.value, 1)
+        self.assertEqual(err, None)
 
 
 if __name__ == '__main__':
