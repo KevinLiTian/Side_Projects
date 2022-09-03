@@ -241,6 +241,11 @@ class Parser:
             self.advance()
             return res.success(NumberNode(tok))
 
+        if tok.type == TT_STRING:
+            res.register_advancement()
+            self.advance()
+            return res.success(StringNode(tok))
+
         if tok.type == TT_IDENTIFIER:
             res.register_advancement()
             self.advance()

@@ -45,6 +45,13 @@ class Lexer:
             elif self.current_char in LETTERS:
                 tokens_list.append(self.make_identifier())
 
+            # String
+            elif self.current_char == '"':
+                token, error = self.make_string()
+                if error:
+                    return [], error
+                tokens_list.append(token)
+
             # Math
             elif self.current_char == '+':
                 tokens_list.append(Token(TT_PLUS, pos_start=self.pos))
@@ -98,6 +105,39 @@ class Lexer:
         # Note end of file
         tokens_list.append(Token(TT_EOF, pos_start=self.pos))
         return tokens_list, None
+
+    def make_string(self):
+        """ Create String Token """
+        string_literal = ""
+        pos_start = self.pos.copy()
+        escape_character = False
+        self.advance()
+
+        escape_characters = {'n': '\n', 't': '\t'}
+
+        while self.current_char is not None and (self.current_char != '"'
+                                                 or escape_character):
+            if escape_character:
+                string_literal += escape_characters.get(
+                    self.current_char, self.current_char)
+                escape_character = False
+            else:
+                if self.current_char == '\\':
+                    escape_character = True
+                else:
+                    string_literal += self.current_char
+
+            self.advance()
+
+        if self.current_char != '"':
+            return None, ExpectedCharError(pos_start=pos_start,
+                                           pos_end=self.pos,
+                                           details="Closing '\"'")
+        self.advance()
+        return Token(TT_STRING,
+                     value=string_literal,
+                     pos_start=pos_start,
+                     pos_end=self.pos), None
 
     def make_number(self):
         """ Create number tokens """

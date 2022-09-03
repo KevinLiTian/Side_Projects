@@ -42,6 +42,9 @@ TT_GTE = "GTE"
 TT_COMMA = "COMMA"
 TT_ARROW = "ARROW"
 
+# String
+TT_STRING = "STRING"
+
 # End of File
 TT_EOF = "EOF"
 
