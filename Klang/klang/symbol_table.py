@@ -4,9 +4,9 @@
 class SymbolTable:
     """ Dictionary of Variables """
 
-    def __init__(self):
+    def __init__(self, parent=None):
         self.symbols = {}
-        self.parent = None
+        self.parent = parent
 
     def get(self, name):
         """ Access a variable """

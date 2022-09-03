@@ -25,6 +25,10 @@ TT_GT = "GT"
 TT_LTE = "LTE"
 TT_GTE = "GTE"
 
+# Function
+TT_COMMA = "COMMA"
+TT_ARROW = "ARROW"
+
 # End of File
 TT_EOF = "EOF"
 

@@ -12,5 +12,6 @@ KEYWORDS = [
     "FOR",
     "TO",
     "STEP",
-    "WHILE"
+    "WHILE",
+    "FUN"
 ]

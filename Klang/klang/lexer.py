@@ -64,6 +64,9 @@ class Lexer:
             elif self.current_char == ')':
                 tokens_list.append(Token(TT_RPAREN, pos_start=self.pos))
                 self.advance()
+            elif self.current_char == ',':
+                tokens_list.append(Token(TT_COMMA, pos_start=self.pos))
+                self.advance()
 
             # Logics
             elif self.current_char == '!':
@@ -149,6 +152,10 @@ class Lexer:
         if self.current_char == '=':
             self.advance()
             tok_type = TT_EE
+
+        elif self.current_char == '>':
+            self.advance()
+            tok_type = TT_ARROW
 
         return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
 
