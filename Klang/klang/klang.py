@@ -1,11 +1,9 @@
 """ Klang Runner """
 
+from .util import SymbolTable, Number, Context
 from .lexer import Lexer
-from .parse import Parser
+from .parser import Parser
 from .interpreter import Interpreter
-from .context import Context
-from .symbol_table import SymbolTable
-from .types import Number
 
 global_symbol_table = SymbolTable()
 global_symbol_table.set("NULL", Number(0))

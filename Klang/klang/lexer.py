@@ -1,11 +1,14 @@
-""" Lexer """
-# pylint: disable=unused-wildcard-import,wildcard-import
+""" Lexer
+The lexer takes text input (Klang Code)
+Tokenizes it into a list of tokens
 
+Tokens are defined in "constants.py", some examples are
+math operators, keywords and logic operators
+"""
+# pylint: disable = wildcard-import, unused-wildcard-import
 from .constants import *
-from .position import *
-from .tokens import *
-from .error import *
-from .keywords import KEYWORDS
+from .util import Position
+from .error import IllegalCharError, ExpectedCharError
 
 
 class Lexer:

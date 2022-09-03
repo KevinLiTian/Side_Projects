@@ -1,43 +1,14 @@
-""" Parse """
-# pylint: disable=unused-wildcard-import,wildcard-import,too-many-function-args,line-too-long
+""" Parser
+The parser takes in a list of tokens tokenized by the lexer
+Processes them into an abstract syntax tree (AST) of nodes
 
-from .tokens import *
-from .nodes import *
-from .error import *
-
-
-class ParseResult:
-    """ Result from Parser """
-
-    def __init__(self):
-        self.error = None
-        self.node = None
-        self.advance_count = 0
-
-    def __repr__(self):
-        return f"{self.node}"
-
-    def register(self, res):
-        """ Register Result """
-        self.advance_count += res.advance_count
-        if res.error:
-            self.error = res.error
-        return res.node
-
-    def register_advancement(self):
-        """ Register an advancement result """
-        self.advance_count += 1
-
-    def success(self, node):
-        """ Success """
-        self.node = node
-        return self
-
-    def failure(self, error):
-        """ Failure """
-        if not self.error or self.advance_count == 0:
-            self.error = error
-        return self
+Nodes are defined in "helper.py", some examples are
+Number Node, If Node, For/While Loop Node, Function Node
+"""
+# pylint: disable = wildcard-import, unused-wildcard-import, line-too-long
+from .constants import *
+from .util import *
+from .error import InvalidSyntaxError
 
 
 class Parser:

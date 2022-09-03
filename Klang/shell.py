@@ -2,7 +2,7 @@
 # pylint: disable=import-error,wrong-import-position
 
 from klang import klang
-from klang.util import TextColors
+from klang.error import TextColors
 
 print(f"{TextColors.OKCYAN}\nWelcome to Klang Shell!{TextColors.ENDC}")
 print("Type 'exit' or press 'control + c' to exit shell")

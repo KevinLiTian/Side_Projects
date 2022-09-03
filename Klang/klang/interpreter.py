@@ -1,9 +1,11 @@
-""" Interpreter """
-# pylint: disable=unused-wildcard-import,wildcard-import,invalid-name,unnecessary-lambda-assignment
+""" Interpreter
+The interpreter takes in an AST of nodes
+Interprets it and return the desired result
+"""
 
-from .runtime import *
-from .tokens import *
-from .types import Number, Function
+# pylint: disable = wildcard-import, unused-wildcard-import, invalid-name, unnecessary-lambda-assignment
+from .constants import *
+from .util import *
 from .error import RTError
 
 
@@ -88,16 +90,16 @@ class Interpreter:
             result, error = left.added_to(right)
 
         elif node.op_tok.type == TT_MINUS:
-            result, error = left.subtracted_by(right)
+            result, error = left.subbed_by(right)
 
         elif node.op_tok.type == TT_MUL:
-            result, error = left.multiplied_by(right)
+            result, error = left.multed_by(right)
 
         elif node.op_tok.type == TT_DIV:
-            result, error = left.divided_by(right)
+            result, error = left.dived_by(right)
 
         elif node.op_tok.type == TT_POW:
-            result, error = left.powered_by(right)
+            result, error = left.powed_by(right)
 
         elif node.op_tok.type == TT_EE:
             result, error = left.get_comparison_eq(right)
@@ -137,7 +139,7 @@ class Interpreter:
             return res
 
         if node.op_tok.type == TT_MINUS:
-            number, error = number.multiplied_by(Number(-1))
+            number, error = number.multed_by(Number(-1))
 
         elif node.op_tok.matches(TT_KEYWORD, "NOT"):
             number, error = number.notted()
