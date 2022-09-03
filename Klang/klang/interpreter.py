@@ -6,6 +6,7 @@ Interprets it and return the desired result
 # pylint: disable = wildcard-import, unused-wildcard-import, invalid-name, unnecessary-lambda-assignment
 from .constants import *
 from .util import *
+from .types import *
 from .error import RTError
 
 

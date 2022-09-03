@@ -1,6 +1,7 @@
 """ Klang Runner """
 
-from .util import BuiltInFunction, SymbolTable, Number, Context
+from .util import SymbolTable, Context
+from .types import BuiltInFunction, Number
 from .lexer import Lexer
 from .parser import Parser
 from .interpreter import Interpreter
