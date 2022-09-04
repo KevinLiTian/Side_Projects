@@ -1,5 +1,5 @@
 """ Value Types """
-# pylint: disable = import-outside-toplevel, arguments-differ, missing-function-docstring, unused-argument
+# pylint: disable = import-outside-toplevel, arguments-differ, missing-function-docstring, unused-argument, broad-except, unspecified-encoding
 import math
 from .error import RTError
 from .util import RTResult, SymbolTable, Context
@@ -491,6 +491,52 @@ class BuiltInFunction(BaseFunction):
 
     execute_extend.arg_names = ["listA", "listB"]
 
+    def execute_len(self, exec_ctx):
+        list_ = exec_ctx.symbol_table.get("list")
+
+        if not isinstance(list_, List):
+            return RTResult().failure(
+                RTError(self.pos_start, self.pos_end, "Argument must be list",
+                        exec_ctx))
+
+        return RTResult().success(Number(len(list_.elements)))
+
+    execute_len.arg_names = ["list"]
+
+    def execute_run(self, exec_ctx):
+        from .klang import run
+
+        func_name = exec_ctx.symbol_table.get("fn")
+
+        if not isinstance(func_name, String):
+            return RTResult().failure(
+                RTError(self.pos_start, self.pos_end,
+                        "Second argument must be string", exec_ctx))
+
+        func_name = func_name.value
+
+        try:
+            with open(func_name, "r") as file:
+                script = file.read()
+        except Exception as err:
+            return RTResult().failure(
+                RTError(self.pos_start, self.pos_end,
+                        f"Failed to load script \"{func_name}\"\n" + str(err),
+                        exec_ctx))
+
+        _, error = run(func_name, script)
+
+        if error:
+            return RTResult().failure(
+                RTError(
+                    self.pos_start, self.pos_end,
+                    f"Failed to finish executing script \"{func_name}\"\n" +
+                    error.as_string(), exec_ctx))
+
+        return RTResult().success(None)
+
+    execute_run.arg_names = ["fn"]
+
 
 Number.NULL = Number(0)
 Number.FALSE = Number(0)
@@ -506,3 +552,5 @@ BuiltInFunction.is_function = BuiltInFunction("is_function")
 BuiltInFunction.append = BuiltInFunction("append")
 BuiltInFunction.pop = BuiltInFunction("pop")
 BuiltInFunction.extend = BuiltInFunction("extend")
+BuiltInFunction.len = BuiltInFunction("len")
+BuiltInFunction.run = BuiltInFunction("run")
