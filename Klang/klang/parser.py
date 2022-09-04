@@ -477,6 +477,12 @@ class Parser:
         if res.error:
             return res
 
+        if self.current_tok.type == TT_EQ:
+            return res.failure(
+                InvalidSyntaxError(self.current_tok.pos_start,
+                                   self.current_tok.pos_start.copy().advance(),
+                                   "Unexpected '=', maybe you meant '=='?"))
+
         if not self.current_tok.matches(TT_KEYWORD, 'THEN'):
             return res.failure(
                 InvalidSyntaxError(self.current_tok.pos_start,
