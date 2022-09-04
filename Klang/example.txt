@@ -1,5 +1,0 @@
-IF 5 == 5 THEN
-    print("math works")
-ELSE
-    print("It's broken")
-END

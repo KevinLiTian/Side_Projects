@@ -1,5 +1,7 @@
 """ Utility Classes & Functions """
 
+# pylint: disable = missing-function-docstring, attribute-defined-outside-init
+
 
 # ========== Parser Result Register =========== #
 class ParseResult:
@@ -52,25 +54,51 @@ class RTResult:
     """ Runtime Result """
 
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.value = None
         self.error = None
+        self.func_return_value = None
+        self.loop_should_continue = False
+        self.loop_should_break = False
 
     def register(self, res):
-        """ Register Runtime Result """
-        if res.error:
-            self.error = res.error
-
+        self.error = res.error
+        self.func_return_value = res.func_return_value
+        self.loop_should_continue = res.loop_should_continue
+        self.loop_should_break = res.loop_should_break
         return res.value
 
     def success(self, value):
-        """ Success """
+        self.reset()
         self.value = value
         return self
 
+    def success_return(self, value):
+        self.reset()
+        self.func_return_value = value
+        return self
+
+    def success_continue(self):
+        self.reset()
+        self.loop_should_continue = True
+        return self
+
+    def success_break(self):
+        self.reset()
+        self.loop_should_break = True
+        return self
+
     def failure(self, error):
-        """ Failure """
+        self.reset()
         self.error = error
         return self
+
+    def should_return(self):
+        # Note: this will allow you to continue and break outside the current function
+        return (self.error or self.func_return_value
+                or self.loop_should_continue or self.loop_should_break)
 
 
 # ========== Token Position Indicator =========== #
@@ -282,11 +310,11 @@ class FuncDefNode:
     """ Function """
 
     def __init__(self, var_name_tok, arg_name_toks, body_node,
-                 should_return_null):
+                 should_auto_return):
         self.var_name_tok = var_name_tok
         self.arg_name_toks = arg_name_toks
         self.body_node = body_node
-        self.should_return_null = should_return_null
+        self.should_auto_return = should_auto_return
 
         if self.var_name_tok:
             self.pos_start = self.var_name_tok.pos_start
@@ -311,3 +339,29 @@ class CallNode:
             self.pos_end = self.arg_nodes[len(self.arg_nodes) - 1].pos_end
         else:
             self.pos_end = self.node_to_call.pos_end
+
+
+class ReturnNode:
+    """ Function Return"""
+
+    def __init__(self, node_to_return, pos_start, pos_end):
+        self.node_to_return = node_to_return
+
+        self.pos_start = pos_start
+        self.pos_end = pos_end
+
+
+class ContinueNode:
+    """ Loop Continue """
+
+    def __init__(self, pos_start, pos_end):
+        self.pos_start = pos_start
+        self.pos_end = pos_end
+
+
+class BreakNode:
+    """ Loop Break """
+
+    def __init__(self, pos_start, pos_end):
+        self.pos_start = pos_start
+        self.pos_end = pos_end
