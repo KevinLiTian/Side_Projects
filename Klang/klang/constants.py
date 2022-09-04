@@ -10,7 +10,7 @@ LETTERS_DIGITS = LETTERS + DIGITS
 # ========== Keyword Constants =========== #
 KEYWORDS = [
     "VAR", "AND", "OR", "NOT", "IF", "THEN", "ELIF", "ELSE", "FOR", "TO",
-    "STEP", "WHILE", "FUN"
+    "STEP", "WHILE", "FUN", "END"
 ]
 
 # ========== Token Type (TT) Constants =========== #
@@ -49,7 +49,8 @@ TT_STRING = "STRING"
 TT_LSQUARE = "LSQUARE"
 TT_RSQUARE = "RSQUARE"
 
-# End of File
+# Other
+TT_NEWLINE = "NEWLINE"
 TT_EOF = "EOF"
 
 

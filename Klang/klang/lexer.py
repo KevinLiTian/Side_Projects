@@ -37,6 +37,11 @@ class Lexer:
             if self.current_char in ' \t':
                 self.advance()
 
+            # Newline
+            elif self.current_char in ';\n':
+                tokens_list.append(Token(TT_NEWLINE, pos_start=self.pos))
+                self.advance()
+
             # Number
             elif self.current_char in DIGITS:
                 tokens_list.append(self.make_number())

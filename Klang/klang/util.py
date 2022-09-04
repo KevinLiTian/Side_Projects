@@ -9,20 +9,31 @@ class ParseResult:
         self.error = None
         self.node = None
         self.advance_count = 0
+        self.last_registered_advance_count = 0
+        self.to_reverse_count = 0
 
     def __repr__(self):
         return f"{self.node}"
 
     def register(self, res):
         """ Register Result """
+        self.last_registered_advance_count = res.advance_count
         self.advance_count += res.advance_count
         if res.error:
             self.error = res.error
         return res.node
 
+    def try_register(self, res):
+        """ Try Reg """
+        if res.error:
+            self.to_reverse_count = res.advance_count
+            return None
+        return self.register(res)
+
     def register_advancement(self):
         """ Register an advancement result """
         self.advance_count += 1
+        self.last_registered_advance_count = 1
 
     def success(self, node):
         """ Success """
@@ -236,19 +247,20 @@ class IfNode:
 
         self.pos_start = self.cases[0][0]
         self.pos_end = (self.else_case
-                        or self.cases[len(self.cases) - 1][0]).pos_end
+                        or self.cases[len(self.cases) - 1])[0].pos_end
 
 
 class ForNode:
     """ For Loop """
 
     def __init__(self, var_name_tok, start_value_node, end_value_node,
-                 step_value_node, body_node):
+                 step_value_node, body_node, should_return_null):
         self.var_name_tok = var_name_tok
         self.start_value_node = start_value_node
         self.end_value_node = end_value_node
         self.step_value_node = step_value_node
         self.body_node = body_node
+        self.should_return_null = should_return_null
 
         self.pos_start = self.var_name_tok.pos_start
         self.pos_end = self.body_node.pos_end
@@ -257,9 +269,10 @@ class ForNode:
 class WhileNode:
     """ While Loop """
 
-    def __init__(self, condition_node, body_node):
+    def __init__(self, condition_node, body_node, should_return_null):
         self.condition_node = condition_node
         self.body_node = body_node
+        self.should_return_null = should_return_null
 
         self.pos_start = self.condition_node.pos_start
         self.pos_end = self.body_node.pos_end
@@ -268,10 +281,12 @@ class WhileNode:
 class FuncDefNode:
     """ Function """
 
-    def __init__(self, var_name_tok, arg_name_toks, body_node):
+    def __init__(self, var_name_tok, arg_name_toks, body_node,
+                 should_return_null):
         self.var_name_tok = var_name_tok
         self.arg_name_toks = arg_name_toks
         self.body_node = body_node
+        self.should_return_null = should_return_null
 
         if self.var_name_tok:
             self.pos_start = self.var_name_tok.pos_start

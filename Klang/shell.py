@@ -10,6 +10,9 @@ print("Type 'exit' or press 'control + c' to exit shell")
 while True:
     text = input("> ")
 
+    if text.strip() == "":
+        continue
+
     if text == "exit":
         break
 
@@ -19,4 +22,8 @@ while True:
         print(error.as_string())
 
     elif result:
-        print(repr(result))
+        if len(result.elements) == 1:
+            if result.elements[0]:
+                print(repr(result.elements[0]))
+        else:
+            print(repr(result))
