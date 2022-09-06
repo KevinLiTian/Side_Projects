@@ -9,7 +9,7 @@ LETTERS_DIGITS = LETTERS + DIGITS
 
 # ========== Keyword Constants =========== #
 KEYWORDS = [
-    "VAR", "AND", "OR", "NOT", "IF", "THEN", "ELIF", "ELSE", "FOR", "TO",
+    "let", "AND", "OR", "NOT", "if", "then", "ELIF", "else", "FOR", "TO",
     "STEP", "WHILE", "FUN", "END", "RETURN", "CONTINUE", "BREAK"
 ]
 

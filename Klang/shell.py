@@ -7,6 +7,8 @@ from klang.error import TextColors
 print(f"{TextColors.OKCYAN}\nWelcome to Klang Shell!{TextColors.ENDC}")
 print("Type 'exit' or press 'control + c' to exit shell")
 
+klang.run('<stdin>', "run(\"example.klang\")")
+
 while True:
     text = input("> ")
 
