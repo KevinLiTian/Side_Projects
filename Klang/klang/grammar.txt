@@ -5,16 +5,16 @@
 
 statements      : NEWLINE* statement (NEWLINE* statement)* NEWLINE*
 
-statement       : KEYWORD:RETURN expr?
-                : KEYWORD:CONTINUE
-                : KEYWORD:BREAK
+statement       : KEYWORD:return expr?
+                : KEYWORD:continue
+                : KEYWORD:br
                 : expr
 
 expr            : KEYWORD:let IDENTIFIER EQ expr
                 : IDENTIFIER EQ expr
-                : comp-expr ((KEYWORD:AND|OR) comp-expr)*
+                : comp-expr ((KEYWORD:and|OR) comp-expr)*
 
-comp-expr       : KEYWORD:NOT comp-expr
+comp-expr       : KEYWORD:not comp-expr
                 : arith-expr ((EE|NE|LT|GT|LTE|GTE) arith-expr)*
 
 
@@ -43,21 +43,21 @@ if-expr         : KEYWORD:if expr KEYWORD:then
                   (statement if-expr-b|if-expr-c?)
                   | (NEWLINE statements KEYWORD:END|if-expr-b|if-expr-c)
 
-if-expr-b       : KEYWORD:ELIF expr KEYWORD:then
+if-expr-b       : KEYWORD:elif expr KEYWORD:then
                   (statement if-expr-b|if-expr-c?)
                   | (NEWLINE statements KEYWORD:END|if-expr-b|if-expr-c)
 
 if-expr-c       : KEYWORD:else statement
                   | (NEWLINE statements KEYWORD:END)
 
-for-expr        : KEY:FOR IDENTIFIER EQ expr KEYWORD:TO expr
-                  (KEYWORD:STEP expr)? KEYWORD:then statement
+for-expr        : KEY:for IDENTIFIER EQ expr KEYWORD:to expr
+                  (KEYWORD:step expr)? KEYWORD:then statement
                   | (NEWLINE statements KEYWORD:END)
 
-while-expr      : KEYWORD:WHILE expr KEYWORD:then statement
+while-expr      : KEYWORD:while expr KEYWORD:then statement
                   | (NEWLINE statements KEYWORD:END)
 
-func-def        : KEYWORD:FUN IDENTIFIER?
+func-def        : KEYWORD:fun IDENTIFIER?
                   LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
                   (ARROW expr)
                   | (NEWLINE statements KEYWORD:END)
