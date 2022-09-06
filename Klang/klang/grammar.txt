@@ -41,23 +41,23 @@ list-expr       : LSQUARE (expr (COMMA expr)*)? RSQUARE
 
 if-expr         : KEYWORD:if expr KEYWORD:then
                   (statement if-expr-b|if-expr-c?)
-                  | (NEWLINE statements KEYWORD:END|if-expr-b|if-expr-c)
+                  | (NEWLINE statements KEYWORD:end|if-expr-b|if-expr-c)
 
 if-expr-b       : KEYWORD:elif expr KEYWORD:then
                   (statement if-expr-b|if-expr-c?)
-                  | (NEWLINE statements KEYWORD:END|if-expr-b|if-expr-c)
+                  | (NEWLINE statements KEYWORD:end|if-expr-b|if-expr-c)
 
 if-expr-c       : KEYWORD:else statement
-                  | (NEWLINE statements KEYWORD:END)
+                  | (NEWLINE statements KEYWORD:end)
 
 for-expr        : KEY:for IDENTIFIER EQ expr KEYWORD:to expr
                   (KEYWORD:step expr)? KEYWORD:then statement
-                  | (NEWLINE statements KEYWORD:END)
+                  | (NEWLINE statements KEYWORD:end)
 
 while-expr      : KEYWORD:while expr KEYWORD:then statement
-                  | (NEWLINE statements KEYWORD:END)
+                  | (NEWLINE statements KEYWORD:end)
 
 func-def        : KEYWORD:fun IDENTIFIER?
                   LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
                   (ARROW expr)
-                  | (NEWLINE statements KEYWORD:END)
+                  | (NEWLINE statements KEYWORD:end)

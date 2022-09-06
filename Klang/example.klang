@@ -7,12 +7,12 @@ if (a == 6 or 3 == 4) and (3 == 3 and not 5 == 6) then
 	say(123)
 else if a == 5 then
 	say(456)
-END
+end
 
 let a = []
 for i = 0 to 10 then
 	append(a, i ^ 2)
-END
+end
 say(a)
 
 let b = 0
@@ -21,20 +21,19 @@ while len(a) then
 	b = b + 1
 	if b == 3 then
 		continue
-	END
+	end
 
 	if b == 7 then
 		break
-	END
+	end
 
 	pop(a, 0)
-	
-END
+end
 say(a)
 
 fun test(a, b)
 	return a + b
-END
+end
 
 say(test(2, 3))
 

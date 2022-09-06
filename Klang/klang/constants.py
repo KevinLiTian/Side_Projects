@@ -10,7 +10,7 @@ LETTERS_DIGITS = LETTERS + DIGITS
 # ========== Keyword Constants =========== #
 KEYWORDS = [
     "let", "and", "or", "not", "if", "then", "elif", "else", "for", "to",
-    "step", "while", "fun", "END", "return", "continue", "break"
+    "step", "while", "fun", "end", "return", "continue", "break"
 ]
 
 # ========== Token Type (TT) Constants =========== #
