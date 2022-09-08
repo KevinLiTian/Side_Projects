@@ -8,7 +8,7 @@ print(f"{TextColors.OKCYAN}\nWelcome to Klang Shell!{TextColors.ENDC}")
 print("Type 'exit' or press 'control + c' to exit shell")
 
 while True:
-    text = input("> ")
+    text = input("Klang > ")
 
     if text.strip() == "":
         continue
