@@ -69,19 +69,19 @@ Klang supports `for` and `while` loops as any other languages. `for` loop uses `
 let a = []
 for i = 1 to 20 step 2 do
 
-	if i == 5 or i == 15 then
-		continue
-	end
+    if i == 5 or i == 15 then
+	continue
+    end
 
-	if i == 17 then
-		break
-	end
+    if i == 17 then
+	break
+    end
 
-	append(a, i ^ 2)
+    append(a, i ^ 2)
 end
 
 while len(a) do
-	pop(a, 0)
+    pop(a, 0)
 end
 ```
 
@@ -91,7 +91,7 @@ I personally prefer functional programming. Klang supports two ways of defining 
 
 ```sh
 fun add(a, b)
-	return a + b
+    return a + b
 end
 
 fun mul(a, b) => a * b
@@ -116,6 +116,10 @@ Klang provides some useful built-in functions, one you've seen so far is `len()`
 - `extend(list1, list2)`: Merges two lists as one list
 - `len(list)`: Returns the length of the `list
 - `run(program)`: Interprets an external Klang program
+
+### Comments
+
+To use comments in Klang, just use the same syntax as in Python, `#` keyword followed by some comments
 
 ## How to Use
 
