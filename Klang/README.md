@@ -2,6 +2,20 @@
 
 A new programming language built on top of Python
 
+## How to Use
+
+Run the following command:
+
+```
+python shell.py
+```
+
+To run the example program, run the following command in the Klang shell:
+
+```sh
+run("example.klang")
+```
+
 ## Syntax
 
 Klang is inspired by two of my favourite languages, Python and JavaScript, with some of my own flavours. It is designed to be easy to use and intuitive with its syntax just like Python. It also has some pretty JavaScript syntax like the `let` keyword to initialize a variable, and the `=>` arrow keyword to quickly define a function
@@ -121,16 +135,4 @@ Klang provides some useful built-in functions, one you've seen so far is `len()`
 
 To use comments in Klang, just use the same syntax as in Python, `#` keyword followed by some comments
 
-## How to Use
-
-Run the following command:
-
-```
-python shell.py
-```
-
-To run the example program, run the following command in the Klang shell:
-
-```sh
-run("example.klang")
-```
+## Error Tracing System
