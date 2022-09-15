@@ -136,3 +136,12 @@ Klang provides some useful built-in functions, one you've seen so far is `len()`
 To use comments in Klang, just use the same syntax as in Python, `#` keyword followed by some comments
 
 ## Error Tracing System
+
+Klang also supports syntax error tracing and runtime error tracing. Some common errors are:
+
+- Illegal Character
+- Expected Character
+- Invalid Syntax
+- Runtime Error
+
+Klang provides as much detail regarding the error as possible to help with debugging
