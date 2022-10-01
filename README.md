@@ -13,3 +13,4 @@ This repository contains my side projects. They are either self-taught or Univer
 |               [Interview](./Interview/)               |         Python          | Technical Interview Questions  |
 |                   [Klang](./Klang/)                   |         Python          |    New Programming Language    |
 |         [Snake Game](./Python_Snake_Game_AI/)         | Python, Pygame, Pytorch |        Deep Learning AI        |
+|                [3D Website](./3dweb/)                 |        three.js         |   3D Website using three.js    |
