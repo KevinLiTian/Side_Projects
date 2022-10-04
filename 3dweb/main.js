@@ -38,15 +38,15 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
 
 // Helpers
-const lightHelper = new THREE.PointLightHelper(pointLight);
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper);
+// const lightHelper = new THREE.PointLightHelper(pointLight);
+// const gridHelper = new THREE.GridHelper(200, 50);
+// scene.add(lightHelper, gridHelper);
 
 // Orbit Controls (Move by mouse)
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // Fill 200 stars
-Array(200).fill().forEach(addStar);
+Array(10000).fill().forEach(addStar);
 
 // Add background texture
 const spaceTexture = new THREE.TextureLoader().load("./space.jpeg");
@@ -72,7 +72,7 @@ function addStar() {
 
   const [x, y, z] = Array(3)
     .fill()
-    .map(() => THREE.MathUtils.randFloatSpread(100));
+    .map(() => THREE.MathUtils.randFloatSpread(1000));
 
   star.position.set(x, y, z);
   scene.add(star);
