@@ -19,7 +19,7 @@ function actionByKey(key) {
 
 export const useKeyboard = () => {
   const [actions, setActions] = useState({
-    moveFoward: false,
+    moveForward: false,
     moveBackward: false,
     moveLeft: false,
     moveRight: false,
