@@ -60,3 +60,8 @@ body {
 .active {
   border: 2px solid black;
 }
+
+.menu {
+  top: 10px;
+  left: 10px;
+}
