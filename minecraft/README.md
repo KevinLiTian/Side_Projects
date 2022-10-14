@@ -7,5 +7,6 @@ Minecraft clone developed with ReactJS and ThreeJS
 Run the command
 
 ```sh
+npm install
 npm run dev
 ```

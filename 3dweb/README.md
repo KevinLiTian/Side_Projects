@@ -7,5 +7,6 @@ A beginner 3D website using three.js
 Run the command
 
 ```sh
+npm install
 npm run dev
 ```
