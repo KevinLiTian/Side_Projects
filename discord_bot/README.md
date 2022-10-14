@@ -18,6 +18,8 @@ Users in discord server can type the command `.hello` with or without a specific
 
 User in discord server can type the command `.weather` and a following location either in postal code form or a city name. User can also use a day limit to specify how many days of results they want to see the weather forecast
 
+This bot uses [Easy Global Weather API](https://www.visualcrossing.com/weather-api)
+
 ### Example
 
 <img width="802" alt="Screen Shot 2022-10-14 at 4 47 25 PM" src="https://user-images.githubusercontent.com/99038613/195940877-98dc58cb-616a-4d8d-a856-96584de5f226.png">
