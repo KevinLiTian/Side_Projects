@@ -1,7 +1,5 @@
 # Side Projects
 
-This repository contains my side projects. They are either self-taught or University course projects
-
 |                         Title                         |       Technology        |             Description             |
 | :---------------------------------------------------: | :---------------------: | :---------------------------------: |
 |          [Interrupt](./Assembly_Interrupt/)           |      ARM Assembly       |     Hardware Interrupt Program      |
