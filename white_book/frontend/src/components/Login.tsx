@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import { IconContext } from 'react-icons/lib';
 import { TiCamera } from 'react-icons/ti';
 import jwt_decode from 'jwt-decode';
