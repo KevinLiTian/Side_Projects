@@ -8,7 +8,7 @@ import { IconContext } from 'react-icons/lib';
 import { User } from '../utils';
 
 interface SidebarProps {
-  user: User | false | null;
+  user: User | null;
   closeToggle?: React.Dispatch<SetStateAction<boolean>>;
 }
 

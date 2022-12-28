@@ -2,7 +2,7 @@ import React from 'react';
 import { Circles } from 'react-loader-spinner';
 
 interface SpinnerProps {
-  message: string;
+  message?: string;
 }
 
 const Spinner = ({ message }: SpinnerProps) => {

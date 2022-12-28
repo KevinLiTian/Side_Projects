@@ -5,7 +5,7 @@ import { Navbar, Feed, PinDetail, CreatePin, Search } from '../components';
 import { User } from '../utils';
 
 interface PinsProps {
-  user: User | false | null;
+  user: User | null;
 }
 
 const Pins = ({ user }: PinsProps) => {

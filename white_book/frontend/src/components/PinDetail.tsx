@@ -1,6 +1,11 @@
 import React from 'react';
+import { User } from '../utils';
 
-const PinDetail = () => {
+interface PinDetailProps {
+  user: User | null;
+}
+
+const PinDetail = ({ user }: PinDetailProps) => {
   return <div>PinDetail</div>;
 };
 
