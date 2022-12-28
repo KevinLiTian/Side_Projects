@@ -13,7 +13,7 @@ const breakpointObj = {
 };
 
 interface MasonryLayoutProps {
-  pins: [typePin];
+  pins: typePin[];
 }
 
 const MasonryLayout = ({ pins }: MasonryLayoutProps) => {
