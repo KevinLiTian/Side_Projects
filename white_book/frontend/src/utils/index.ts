@@ -89,3 +89,9 @@ export const feedQuery = `*[_type == 'pin'] | order(_createAt desc) {
     },
   },
 }`;
+
+export const fetchUser = (): User => {
+  return localStorage.getItem('user') !== 'undefined'
+    ? JSON.parse(localStorage.getItem('user')!)
+    : localStorage.clear();
+};

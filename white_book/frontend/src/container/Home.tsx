@@ -7,7 +7,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import { Sidebar, UserProfile } from '../components';
 import Pins from './Pins';
-import { userQuery, User } from '../utils';
+import { userQuery, User, fetchUser } from '../utils';
 import { client } from '../client';
 
 const Home = () => {
@@ -15,10 +15,7 @@ const Home = () => {
   const [user, setUser] = useState<User | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const userInfo =
-    localStorage.getItem('user') !== 'undefined'
-      ? JSON.parse(localStorage.getItem('user')!)
-      : localStorage.clear();
+  const userInfo = fetchUser();
 
   useEffect(() => {
     const query = userQuery(userInfo?._id);
