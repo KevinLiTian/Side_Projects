@@ -5,7 +5,7 @@ import { TiCamera } from 'react-icons/ti';
 import jwt_decode from 'jwt-decode';
 
 import { client } from '../client';
-import { DecodedResponse } from '../utils';
+import { DecodedResponse } from '../utils/interfaces';
 import shareVideo from '../assets/share.mp4';
 
 const Login = () => {

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { client } from '../client';
-import { feedQuery, Pin, searchQuery } from '../utils';
+import { feedQuery, searchQuery } from '../utils/queries';
+import { Pin } from '../utils/interfaces';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 

@@ -6,7 +6,8 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
 
 import { client, urlFor } from '../client';
-import { fetchUser, Pin as typePin } from '../utils';
+import { fetchUser } from '../utils/queries';
+import { Pin as typePin } from '../utils/interfaces';
 
 interface PinProps {
   pin: typePin;
@@ -21,7 +22,7 @@ const Pin = ({
 
   const [postHovered, setPostHovered] = useState(false);
   const [saveNum, setSaveNum] = useState(
-    save?.filter((item) => item.postedBy._id === userInfo._id).length
+    save?.filter((item) => item.postedBy._id === userInfo?._id).length
   );
 
   const savePin = (id: string) => {
@@ -32,10 +33,10 @@ const Pin = ({
         .insert('after', 'save[-1]', [
           {
             _key: uuidv4(),
-            userId: userInfo._id,
+            userId: userInfo?._id,
             postedBy: {
               _type: postedBy,
-              _ref: userInfo._id,
+              _ref: userInfo?._id,
             },
           },
         ])
@@ -109,12 +110,12 @@ const Pin = ({
                   onClick={(e) => e.stopPropagation()}
                 >
                   <BsFillArrowUpRightCircleFill />
-                  {destination.length > 20
-                    ? destination.slice(8, 20)
-                    : destination.slice(8)}
+                  {destination.length > 15
+                    ? `${destination.slice(0, 15)}...`
+                    : destination}
                 </a>
               )}
-              {postedBy._id === userInfo._id && (
+              {postedBy._id === userInfo?._id && (
                 <button
                   type="button"
                   onClick={(e) => {

@@ -7,7 +7,8 @@ import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Sidebar, UserProfile } from '../components';
 import Pins from './Pins';
-import { userQuery, User, fetchUser } from '../utils';
+import { userQuery, fetchUser } from '../utils/queries';
+import { User } from '../utils/interfaces';
 import { client } from '../client';
 
 const Home = () => {

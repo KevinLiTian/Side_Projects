@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { Navbar, Feed, PinDetail, CreatePin, Search } from '../components';
-import { User } from '../utils';
+import { User } from '../utils/interfaces';
 
 interface PinsProps {
   user: User | null;

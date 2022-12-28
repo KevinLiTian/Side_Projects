@@ -5,7 +5,8 @@ import { MdDelete } from 'react-icons/md';
 
 import { client } from '../client';
 import Spinner from './Spinner';
-import { User, categories } from '../utils';
+import { User } from '../utils/interfaces';
+import { categories } from '../utils/categories';
 import { SanityImageAssetDocument } from '@sanity/client';
 
 interface CreatePinProps {

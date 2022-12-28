@@ -5,7 +5,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { TiCamera } from 'react-icons/ti';
 import { IconContext } from 'react-icons/lib';
 
-import { User } from '../utils';
+import { User } from '../utils/interfaces';
 
 interface SidebarProps {
   user: User | null;

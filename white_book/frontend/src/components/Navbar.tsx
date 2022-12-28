@@ -2,7 +2,7 @@ import React, { SetStateAction } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdAdd, IoMdSearch } from 'react-icons/io';
 
-import { User } from '../utils';
+import { User } from '../utils/interfaces';
 
 interface NavbarProps {
   searchTerm: string;
