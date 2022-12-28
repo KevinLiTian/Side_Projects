@@ -1,11 +1,11 @@
 import React, { SetStateAction } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
-import { IoIosArrowForward } from 'react-icons/io';
 import { TiCamera } from 'react-icons/ti';
 import { IconContext } from 'react-icons/lib';
 
 import { User } from '../utils/interfaces';
+import { categories } from '../utils/categories';
 
 interface SidebarProps {
   user: User | null;
@@ -16,16 +16,7 @@ const Sidebar = ({ user, closeToggle }: SidebarProps) => {
   const isNotActiveStyle =
     'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize';
   const isActiveStyle =
-    'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black';
-
-  const categories = [
-    { name: 'Animals' },
-    { name: 'Wallpapers' },
-    { name: 'Photography' },
-    { name: 'Gaming' },
-    { name: 'Coding' },
-    { name: 'Other' },
-  ];
+    'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black capitalize';
 
   const handleCloseSidebar = () => {
     if (closeToggle) closeToggle(false);
@@ -67,6 +58,11 @@ const Sidebar = ({ user, closeToggle }: SidebarProps) => {
               onClick={handleCloseSidebar}
               key={category.name}
             >
+              <img
+                src={category.image}
+                alt="categories"
+                className="w-8 h-8 rounded-full shsadow-sm"
+              />
               {category.name}
             </NavLink>
           ))}
